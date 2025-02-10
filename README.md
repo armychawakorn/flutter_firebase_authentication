@@ -11,7 +11,7 @@
 ## โครงสร้างโปรเจกต์
 
 ```
-flutter_authentication/
+flutter_firebase_authentication/
 ├── lib/
 │   ├── custom_text_field.dart    # Reusable Text Field Widget
 │   ├── views/
