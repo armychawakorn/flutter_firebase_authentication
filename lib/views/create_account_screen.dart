@@ -15,13 +15,12 @@ class CreateAccountPage extends StatelessWidget {
         title:
             const Text('Create Account', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue[800],
-        elevation: 0, // Remove shadow
-        iconTheme: const IconThemeData(color: Colors.white), // สี icon ย้อนกลับ
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            // ใช้ Gradient Background
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [Colors.blue[800]!, Colors.blue[200]!],
@@ -34,28 +33,20 @@ class CreateAccountPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                // Logo (Optional)
-                // Image.asset(
-                //   'assets/logo.png',
-                //   height: 100,
-                // ),
                 const SizedBox(height: 20),
 
-                // Title
                 const Text(
                   'Create Your Account',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // ปรับสี Title
+                    color: Colors.white,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 30),
 
-                // Email Input Field
                 CustomTextField(
-                  // ใช้ CustomTextField
                   controller: _emailController,
                   labelText: 'Email',
                   hintText: 'Enter your email',
@@ -64,7 +55,6 @@ class CreateAccountPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // Password Input Field
                 CustomTextField(
                   controller: _passwordController,
                   labelText: 'Password',
@@ -74,7 +64,6 @@ class CreateAccountPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // Confirm Password Input Field
                 CustomTextField(
                   controller: _confirmPasswordController,
                   labelText: 'Confirm Password',
@@ -84,7 +73,6 @@ class CreateAccountPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
 
-                // Create Account Button
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white, // สลับสีกับ HomePage
@@ -123,13 +111,11 @@ class CreateAccountPage extends StatelessWidget {
     );
   }
 
-  // _createAccount, _showErrorDialog, _showSuccessDialog เหมือนเดิม (ไม่ต้องแก้)
   void _createAccount(BuildContext context) async {
     String email = _emailController.text.trim();
     String password = _passwordController.text;
     String confirmPassword = _confirmPasswordController.text;
 
-    // Basic Validation (เหมือนเดิม)
     if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
       _showErrorDialog(context, "Please fill in all fields.");
       return;
@@ -152,12 +138,10 @@ class CreateAccountPage extends StatelessWidget {
       return;
     }
 
-    // Firebase Authentication
     try {
-      // 1. Show loading indicator (Optional, but recommended)
       showDialog(
         context: context,
-        barrierDismissible: false, // Prevent user from dismissing the dialog
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -165,32 +149,21 @@ class CreateAccountPage extends StatelessWidget {
         },
       );
 
-      // 2. Create user with email and password
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // 3. (Optional) Send email verification
-      // await userCredential.user!.sendEmailVerification();
-
-      // 4. Hide loading indicator
       Navigator.of(context).pop(); // Pop the loading dialog
 
-      // 5. Show success dialog
       _showSuccessDialog(context);
-
-      // 6. (Optional) Navigate to another screen (e.g., login)
-      // Navigator.pushReplacementNamed(context, '/login');
     } on FirebaseAuthException catch (e) {
-      // Hide loading indicator (if any)
       if (Navigator.of(context).canPop()) {
         Navigator.of(context).pop();
       }
 
-      // Handle Firebase errors
-      String errorMessage = "An error occurred."; // Default error message
+      String errorMessage = "An error occurred.";
 
       if (e.code == 'weak-password') {
         errorMessage = "The password provided is too weak.";
@@ -202,19 +175,15 @@ class CreateAccountPage extends StatelessWidget {
         errorMessage =
             "Email/password accounts are not enabled. Enable them in the Firebase console.";
       }
-      // Add more error handling as needed
 
-      _showErrorDialog(
-          context, errorMessage); // Show the specific error message
+      _showErrorDialog(context, errorMessage);
     } catch (e) {
-      // Hide loading indicator (if any)
       if (Navigator.of(context).canPop()) {
         Navigator.of(context).pop();
       }
-      // Handle other errors
       _showErrorDialog(
           context, "An unexpected error occurred: ${e.toString()}");
-      print(e); // Log the error for debugging
+      print(e);
     }
   }
 

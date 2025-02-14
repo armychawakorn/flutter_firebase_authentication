@@ -1,5 +1,3 @@
-// สร้างไฟล์ใหม่ชื่อ custom_text_field.dart (หรือชื่ออื่นที่สื่อความหมาย)
-
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -11,14 +9,14 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
 
   const CustomTextField({
-    Key? key, // เพิ่ม Key? key
+    Key? key,
     required this.controller,
     required this.labelText,
     required this.hintText,
     required this.icon,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
-  }) : super(key: key); // เพิ่ม : super(key: key)
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

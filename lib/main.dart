@@ -25,36 +25,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: '/home', // Set the initial route
+      initialRoute: '/home',
       routes: {
         '/login': (context) => LoginPage(),
         '/create_account': (context) => CreateAccountPage(),
-        '/home': (context) => HomePage(), //Add home page
+        '/home': (context) => HomePage(),
         '/forgot_password': (context) => ForgotPasswordPage()
-        // Add other routes as needed
       },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Firebase Auth',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: CreateAccountPage(),
     );
   }
 }

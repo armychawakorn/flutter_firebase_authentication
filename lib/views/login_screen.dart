@@ -18,9 +18,9 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blue[800], // Same as Create Account
+        backgroundColor: Colors.blue[800],
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white), // สี icon
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -37,26 +37,17 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                // Logo (Optional - same as Create Account)
-                // Image.asset(
-                //   'assets/logo.png',
-                //   height: 100,
-                // ),
                 const SizedBox(height: 20),
-
-                // Title
                 const Text(
                   'Welcome Back!',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // Same as Create Account
+                    color: Colors.white,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 30),
-
-                // Email Input Field
                 CustomTextField(
                   controller: _emailController,
                   labelText: 'Email',
@@ -65,8 +56,6 @@ class _LoginPageState extends State<LoginPage> {
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 20),
-
-                // Password Input Field
                 CustomTextField(
                   controller: _passwordController,
                   labelText: 'Password',
@@ -75,8 +64,6 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                 ),
                 const SizedBox(height: 30),
-
-                // Login Button
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white, // Same as Create Account
@@ -94,11 +81,8 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
-
                 const SizedBox(height: 20),
-
                 TextButton(
-                  // ปุ่ม Forgot Password?
                   onPressed: () {
                     Navigator.pushNamed(context, '/forgot_password');
                   },
@@ -107,14 +91,10 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(color: Colors.white70),
                   ),
                 ),
-
                 const SizedBox(height: 20),
-
-                // "Don't have an account?" Text
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context,
-                        '/create_account'); // Navigate to Create Account
+                    Navigator.pushNamed(context, '/create_account');
                   },
                   child: const Text(
                     "Don't have an account? Sign Up",
@@ -129,20 +109,16 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-// _login และ _showErrorDialog เหมือนเดิม (ไม่ต้องแก้)
   void _login(BuildContext context) async {
     String email = _emailController.text.trim();
     String password = _passwordController.text;
 
-    // Basic Validation (You can add more if needed)
     if (email.isEmpty || password.isEmpty) {
       _showErrorDialog(context, "Please fill in all fields.");
       return;
     }
 
-    // Firebase Authentication
     try {
-      // 1. Show loading indicator
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -153,17 +129,14 @@ class _LoginPageState extends State<LoginPage> {
         },
       );
 
-      // 2. Sign in with email and password
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // 3. Hide loading indicator
       Navigator.of(context).pop();
 
-      // 4. Navigate to home screen (or wherever you want)
       Navigator.pushReplacementNamed(
           context, '/home'); // Replace with your home route
     } on FirebaseAuthException catch (e) {

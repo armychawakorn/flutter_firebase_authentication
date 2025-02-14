@@ -55,7 +55,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 ),
                 const SizedBox(height: 30),
                 CustomTextField(
-                  // หรือ TextFormField ถ้าคุณไม่ได้ใช้ CustomTextField
                   controller: _emailController,
                   labelText: 'Email',
                   hintText: 'Enter your email',
@@ -91,7 +90,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Future<void> _resetPassword(BuildContext context) async {
     String email = _emailController.text.trim();
 
-    // Basic Validation
     if (email.isEmpty) {
       _showErrorDialog(context, "Please enter your email.");
       return;
@@ -103,7 +101,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       return;
     }
 
-    // Firebase Authentication: Send Password Reset Email
     try {
       showDialog(
         context: context,
@@ -117,7 +114,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
 
-      Navigator.of(context).pop(); // Hide loading indicator
+      Navigator.of(context).pop();
 
       _showSuccessDialog(
           context, "Password reset email sent. Check your inbox.");
@@ -174,8 +171,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             TextButton(
               child: const Text("OK"),
               onPressed: () {
-                Navigator.of(context).pop(); // Close dialog
-                Navigator.of(context).pop(); // Go back to login page
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
             ),
           ],

@@ -32,28 +32,26 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacementNamed(context, '/home'); // ไปหน้า Login
+    Navigator.pushReplacementNamed(context, '/home');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text('', style: TextStyle(color: Colors.white)), // สี title
+        title: const Text('', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue[800],
-        elevation: 0, // เอา shadow ใต้ AppBar ออก
+        elevation: 0,
         actions: [
           if (_user != null)
             IconButton(
-              icon: const Icon(Icons.logout, color: Colors.white), // สี icon
+              icon: const Icon(Icons.logout, color: Colors.white),
               onPressed: _signOut,
             ),
         ],
       ),
       body: Container(
         decoration: BoxDecoration(
-          // เพิ่ม Background
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -62,7 +60,7 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(20.0), // เพิ่ม padding รอบๆ content
+            padding: const EdgeInsets.all(20.0),
             child: _buildContent(),
           ),
         ),
@@ -82,9 +80,8 @@ class _HomePageState extends State<HomePage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // เพิ่ม Icon
         const Icon(
-          Icons.check_circle, // หรือ Icons.verified_user, Icons.account_circle
+          Icons.check_circle,
           color: Colors.white,
           size: 60,
         ),
@@ -94,21 +91,20 @@ class _HomePageState extends State<HomePage> {
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: Colors.white, // สีข้อความ
+            color: Colors.white,
           ),
-          textAlign: TextAlign.center, // จัดให้อยู่ตรงกลาง
+          textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 40), // เพิ่มระยะห่าง
+        const SizedBox(height: 40),
         ElevatedButton.icon(
-          // ใช้ ElevatedButton.icon
           icon: const Icon(Icons.logout, color: Colors.blue),
           label: const Text('Sign Out', style: TextStyle(fontSize: 18)),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white, // สีปุ่ม
-            foregroundColor: Colors.blue[800], // สีข้อความในปุ่ม
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.blue[800],
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30), // ทำให้ปุ่มโค้งมน
+              borderRadius: BorderRadius.circular(30),
             ),
           ),
           onPressed: _signOut,
@@ -121,18 +117,11 @@ class _HomePageState extends State<HomePage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // Image/Icon (Optional)
-        // Image.asset(
-        //   'assets/welcome_image.png', // ใส่ path ของรูปภาพ
-        //   height: 150,
-        // ),
-        // หรือ
         const Icon(
           Icons.person,
           color: Colors.white,
           size: 60,
         ),
-
         const SizedBox(height: 20),
         const Text(
           'Welcome to pingpong show!',
@@ -144,7 +133,7 @@ class _HomePageState extends State<HomePage> {
         ),
         const SizedBox(height: 10),
         const Text(
-          'Please login or create an account to continue.', // เพิ่มข้อความ
+          'Please login or create an account to continue.',
           style: TextStyle(fontSize: 16, color: Colors.white70),
           textAlign: TextAlign.center,
         ),
@@ -167,7 +156,7 @@ class _HomePageState extends State<HomePage> {
         OutlinedButton(
           style: OutlinedButton.styleFrom(
             foregroundColor: Colors.white,
-            side: const BorderSide(color: Colors.white), // สีเส้นขอบ
+            side: const BorderSide(color: Colors.white),
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
